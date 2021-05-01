@@ -1,0 +1,13 @@
+.checkbox__container {
+    display: inline-block;
+    text-align: left;
+}
+
+.checkbox__container .input__label {
+    margin-left: 0.5rem;
+    vertical-align: middle;
+}
+
+.checkbox__container .input--checkbox, .checkbox__container .input__label {
+    vertical-align: middle;
+}

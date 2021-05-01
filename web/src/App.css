@@ -12,7 +12,14 @@
 }
 
 .app .card__content__instructions {
+    color: #555;
     font-size: 0.9rem;
+}
+
+.app .input__label {
+    color: #555;
+    font-size: 0.9rem;
+    text-align: left;
 }
 
 .form {
@@ -20,12 +27,12 @@
     flex-direction: column;
 }
 
-.form .input {
-    margin-bottom: 8px;
-}
-
 .form .button {
     margin-top: 8px;
+}
+
+.mt-4 {
+   margin-top: 0.25rem;
 }
 
 
