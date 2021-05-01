@@ -16,5 +16,5 @@ export interface InputAttributes {
 
 export interface OAuthProvider {
     url: string;
-    icon: any;
+    icon: string;
 }
