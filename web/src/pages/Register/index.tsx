@@ -19,6 +19,7 @@ const oAuthProviders: OAuthProvider[] = [
 const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
+    const [repeatedPassword, setRepeatedPassword] = useState<string>("");
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -30,14 +31,23 @@ const RegisterPage: React.FC = () => {
         setPassword(value);
     }
 
+    const handleRepeatPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setRepeatedPassword(value);
+    }
+
     const isDisabled = (): boolean => {
-        return email.length === 0 || password.length === 0;
+        return email.length === 0 || password.length === 0 || repeatedPassword.length === 0 || passwordsDoNotMatch();
+    }
+
+    const passwordsDoNotMatch = (): boolean => {
+        return password !== repeatedPassword;
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await services.register({email, password});
+            const response = await services.register({email, password, repeatedPassword});
             console.log(response);
         } catch (err: any) {
             console.log(err);
@@ -66,10 +76,21 @@ const RegisterPage: React.FC = () => {
                         <TextInput
                             value={password}
                             name="password"
-                            autoComplete="current-password"
+                            autoComplete="new-password"
                             type="password"
                             onChange={handlePasswordChange}
                         />
+                        <label className="input__label mt-4" htmlFor="repeatedPassword">Repeat Password</label>
+                        <TextInput
+                            value={repeatedPassword}
+                            name="repeatedPassword"
+                            autoComplete="new-password"
+                            type="password"
+                            onChange={handleRepeatPasswordChange}
+                        />
+                        {passwordsDoNotMatch() &&
+                            <small className="input__hint">Passwords do not match</small>
+                        }
                         <Button type="submit" disabled={isDisabled()}>Register</Button>
                     </form>
                     <span className="text--separator my-8">Or continue with</span>

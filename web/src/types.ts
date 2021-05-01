@@ -35,4 +35,4 @@ export type UserAccount = UserCredentials;
 
 export type LoginRequest = UserCredentials & {rememberMe?: boolean};
 
-export type RegisterRequest = UserCredentials;
+export type RegisterRequest = UserCredentials & {repeatedPassword: string};
