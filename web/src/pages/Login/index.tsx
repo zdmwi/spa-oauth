@@ -8,13 +8,14 @@ import {OAuthProvider} from "../../types";
 import OAuthLink from "../../components/OAuthLink";
 import GithubIcon from "../../assets/icons/github-icon.svg";
 import TwitterIcon from "../../assets/icons/twitter-icon.svg";
+import config from "../../config";
 
 const oAuthProviders: OAuthProvider[] = [
-    {url: "#/github", icon: GithubIcon},
-    {url: "#/twitter", icon: TwitterIcon}
+    {url: `${config.baseUrl}/oauth/github/redirect`, icon: GithubIcon},
+    {url: `${config.baseUrl}/oauth/twitter/redirect`, icon: TwitterIcon}
 ];
 
-const Login: React.FC = () => {
+const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [shouldRemember, setShouldRemember] = useState<boolean>(false);
@@ -45,7 +46,7 @@ const Login: React.FC = () => {
     return (
         <div className="login__page">
             <Card>
-                <header className="card__header"><h1>Sign in</h1></header>
+                <header className="card__header"><h1>Login</h1></header>
                 <main className="card__content">
                     <p className="card__content__instructions">Enter your email and password to sign in</p>
                     <form onSubmit={handleSubmit} noValidate={true} className="form">
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
                             checked={shouldRemember}
                             onChange={handleRememberMeChange}
                         />
-                        <Button type="submit" disabled={isDisabled()}>Sign In</Button>
+                        <Button type="submit" disabled={isDisabled()}>Login</Button>
                     </form>
                     <span className="text--separator my-8">Or continue with</span>
                     <div className="oauth_link__container mt-4">
@@ -83,4 +84,4 @@ const Login: React.FC = () => {
     );
 }
 
-export default Login;
+export default LoginPage;

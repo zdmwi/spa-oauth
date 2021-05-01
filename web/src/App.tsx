@@ -1,11 +1,14 @@
 import React from "react";
 import './App.css';
-import Login from "./pages/Login";
+import {Switch} from "react-router-dom";
+import pageRoutes from "./config/pageRoutes";
 
 function App() {
     return (
         <div className="app">
-            <Login/>
+            <Switch>
+                {pageRoutes}
+            </Switch>
         </div>
     );
 }

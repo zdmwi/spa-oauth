@@ -1,8 +1,8 @@
-import React, {ReactNode} from "react";
+import React, {ComponentType, ElementType, ReactNode} from "react";
 
 export interface BaseAttributes {
-    id ?: string;
-    className ?: string;
+    id?: string;
+    className?: string;
 }
 
 export interface InputAttributes {
@@ -17,4 +17,11 @@ export interface InputAttributes {
 export interface OAuthProvider {
     url: string;
     icon: string;
+}
+
+export interface PageRoute {
+    path: string;
+    component: ElementType;
+    routes?: PageRoute[];
+    isPrivate: boolean;
 }
