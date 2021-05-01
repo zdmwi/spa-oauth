@@ -1,0 +1,18 @@
+.button {
+    padding: 0.5rem 1rem;
+    width: auto;
+    outline: none;
+    border: 1px solid #ececec;
+    cursor: pointer;
+    background: #5850EB;
+    border-radius: 0.25rem;
+    color: #fff;
+}
+
+.button:hover {
+    background: #4139e8;
+}
+
+.button:disabled {
+    background: #bdbdbd;
+}
