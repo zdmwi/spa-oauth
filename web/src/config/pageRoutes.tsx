@@ -21,6 +21,11 @@ const routes: PageRoute[] = [
         path: "/home",
         component: HomePage,
         isPrivate: true
+    },
+    {
+        path: "/",
+        component: HomePage,
+        isPrivate: true
     }
 ];
 

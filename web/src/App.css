@@ -36,12 +36,17 @@
         justify-content: center;
         align-items: center;
     }
+
+    .auth__page .card .card__inner {
+        width: 400px;
+    }
 }
 
 .auth__page .card__content__instructions {
     color: #444;
     font-size: 0.9rem;
     margin-top: 1.5rem;
+    text-align: left;
 }
 
 .auth__page .input__label {

@@ -31,6 +31,8 @@ export interface UserCredentials {
     password: string;
 }
 
+export type UserAccount = UserCredentials;
+
 export type LoginRequest = UserCredentials & {rememberMe?: boolean};
 
 export type RegisterRequest = UserCredentials;
