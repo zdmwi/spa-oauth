@@ -25,3 +25,9 @@ export interface PageRoute {
     routes?: PageRoute[];
     isPrivate: boolean;
 }
+
+export interface LoginRequest {
+    email: string;
+    password: string;
+    rememberMe: boolean;
+}

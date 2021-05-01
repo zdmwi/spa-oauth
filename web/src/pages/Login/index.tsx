@@ -9,6 +9,7 @@ import OAuthLink from "../../components/OAuthLink";
 import GithubIcon from "../../assets/icons/github-icon.svg";
 import TwitterIcon from "../../assets/icons/twitter-icon.svg";
 import config from "../../config";
+import services from "../../services";
 
 const oAuthProviders: OAuthProvider[] = [
     {url: `${config.baseUrl}/oauth/github/redirect`, icon: GithubIcon},
@@ -18,7 +19,7 @@ const oAuthProviders: OAuthProvider[] = [
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [shouldRemember, setShouldRemember] = useState<boolean>(false);
+    const [rememberMe, setRememberMe] = useState<boolean>(false);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -31,16 +32,20 @@ const LoginPage: React.FC = () => {
     }
 
     const handleRememberMeChange = () => {
-        setShouldRemember(prevState => !prevState);
+        setRememberMe(prevState => !prevState);
     }
 
     const isDisabled = (): boolean => {
         return email.length === 0 || password.length === 0;
     }
 
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        console.log(email, password, shouldRemember);
+    const handleSubmit = async () => {
+        try {
+            const response = await services.login({email, password, rememberMe});
+            console.log(response);
+        } catch (e) {
+            console.log(e);
+        }
     }
 
     return (
@@ -69,7 +74,7 @@ const LoginPage: React.FC = () => {
                         <CheckboxInput
                             className="mt-4"
                             label="Remember me"
-                            checked={shouldRemember}
+                            checked={rememberMe}
                             onChange={handleRememberMeChange}
                         />
                         <Button type="submit" disabled={isDisabled()}>Login</Button>
