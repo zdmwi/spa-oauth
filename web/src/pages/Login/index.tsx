@@ -6,16 +6,9 @@ import Button from "../../components/Button";
 import "./index.css";
 import {OAuthProvider} from "../../types";
 import OAuthLink from "../../components/OAuthLink";
-import GithubIcon from "../../assets/icons/github-icon.svg";
-import TwitterIcon from "../../assets/icons/twitter-icon.svg";
-import config from "../../config";
 import services from "../../services";
 import {Link} from 'react-router-dom';
-
-const oAuthProviders: OAuthProvider[] = [
-    {url: `${config.baseUrl}/oauth/github/redirect`, icon: GithubIcon},
-    {url: `${config.baseUrl}/oauth/twitter/redirect`, icon: TwitterIcon}
-];
+import oAuthProviders from "../../config/oAuthProviders";
 
 const LoginPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -55,7 +48,8 @@ const LoginPage: React.FC = () => {
             <Card>
                 <header className="card__header">
                     <h1 className="card__header__title">Login</h1>
-                    <span className="card__header__advice">Need an account? <Link to="/register">Register now</Link></span>
+                    <span className="card__header__advice">Need an account? <Link
+                        to="/register">Register now</Link></span>
                 </header>
                 <main className="card__content">
                     <p className="card__content__instructions">Enter your email and password to login</p>
@@ -86,7 +80,13 @@ const LoginPage: React.FC = () => {
                     </form>
                     <span className="text--separator my-8">Or continue with</span>
                     <div className="oauth_link__container mt-4">
-                        {oAuthProviders.map(({url, icon}: OAuthProvider) => <OAuthLink key={url} url={url} icon={icon}/>)}
+                        {oAuthProviders.map(({url, icon}: OAuthProvider) =>
+                            <OAuthLink
+                                key={url}
+                                url={url}
+                                icon={icon}
+                            />
+                        )}
                     </div>
                 </main>
             </Card>

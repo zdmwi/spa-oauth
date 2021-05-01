@@ -5,16 +5,9 @@ import Button from "../../components/Button";
 import "./index.css";
 import {OAuthProvider} from "../../types";
 import OAuthLink from "../../components/OAuthLink";
-import GithubIcon from "../../assets/icons/github-icon.svg";
-import TwitterIcon from "../../assets/icons/twitter-icon.svg";
-import config from "../../config";
 import services from "../../services";
 import {Link} from "react-router-dom";
-
-const oAuthProviders: OAuthProvider[] = [
-    {url: `${config.baseUrl}/oauth/github/redirect`, icon: GithubIcon},
-    {url: `${config.baseUrl}/oauth/twitter/redirect`, icon: TwitterIcon}
-];
+import oAuthProviders from "../../config/oAuthProviders";
 
 const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
@@ -89,13 +82,19 @@ const RegisterPage: React.FC = () => {
                             onChange={handleRepeatPasswordChange}
                         />
                         {passwordsDoNotMatch() &&
-                            <small className="input__hint">Passwords do not match</small>
+                        <small className="input__hint">Passwords do not match</small>
                         }
                         <Button type="submit" disabled={isDisabled()}>Register</Button>
                     </form>
                     <span className="text--separator my-8">Or continue with</span>
                     <div className="oauth_link__container mt-4">
-                        {oAuthProviders.map(({url, icon}: OAuthProvider) => <OAuthLink key={url} url={url} icon={icon}/>)}
+                        {oAuthProviders.map(({url, icon}: OAuthProvider) =>
+                            <OAuthLink
+                                key={url}
+                                url={url}
+                                icon={icon}
+                            />
+                        )}
                     </div>
                 </main>
             </Card>
