@@ -26,8 +26,11 @@ export interface PageRoute {
     isPrivate: boolean;
 }
 
-export interface LoginRequest {
+export interface UserCredentials {
     email: string;
     password: string;
-    rememberMe: boolean;
 }
+
+export type LoginRequest = UserCredentials & {rememberMe?: boolean};
+
+export type RegisterRequest = UserCredentials;

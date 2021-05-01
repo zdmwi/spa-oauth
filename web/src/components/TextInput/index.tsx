@@ -10,7 +10,7 @@ const TextInput: React.FC<BaseAttributes & InputAttributes> = (props: PropsWithC
             name={props.name}
             value={props.value}
             autoComplete={props.autoComplete}
-            type="text"
+            type={props.type}
             className={`input--text ${props.className}`}
             onChange={props.onChange}
         />

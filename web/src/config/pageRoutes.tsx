@@ -4,11 +4,17 @@ import LoginPage from "../pages/Login";
 import HomePage from "../pages/Home";
 import {Route} from "react-router-dom";
 import PrivateRoute from "../helpers/PrivateRoute";
+import RegisterPage from "../pages/Register";
 
 const routes: PageRoute[] = [
     {
         path: "/login",
         component: LoginPage,
+        isPrivate: false
+    },
+    {
+        path: "/register",
+        component: RegisterPage,
         isPrivate: false
     },
     {

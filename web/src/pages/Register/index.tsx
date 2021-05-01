@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import Card from "../../components/Card";
 import TextInput from "../../components/TextInput";
-import CheckboxInput from "../../components/CheckboxInput";
 import Button from "../../components/Button";
 import "./index.css";
 import {OAuthProvider} from "../../types";
@@ -10,17 +9,16 @@ import GithubIcon from "../../assets/icons/github-icon.svg";
 import TwitterIcon from "../../assets/icons/twitter-icon.svg";
 import config from "../../config";
 import services from "../../services";
-import {Link} from 'react-router-dom';
+import {Link} from "react-router-dom";
 
 const oAuthProviders: OAuthProvider[] = [
     {url: `${config.baseUrl}/oauth/github/redirect`, icon: GithubIcon},
     {url: `${config.baseUrl}/oauth/twitter/redirect`, icon: TwitterIcon}
 ];
 
-const LoginPage: React.FC = () => {
+const RegisterPage: React.FC = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [rememberMe, setRememberMe] = useState<boolean>(false);
 
     const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -32,10 +30,6 @@ const LoginPage: React.FC = () => {
         setPassword(value);
     }
 
-    const handleRememberMeChange = () => {
-        setRememberMe(prevState => !prevState);
-    }
-
     const isDisabled = (): boolean => {
         return email.length === 0 || password.length === 0;
     }
@@ -43,7 +37,7 @@ const LoginPage: React.FC = () => {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         try {
-            const response = await services.login({email, password, rememberMe});
+            const response = await services.register({email, password});
             console.log(response);
         } catch (err: any) {
             console.log(err);
@@ -54,11 +48,11 @@ const LoginPage: React.FC = () => {
         <div className="auth__page">
             <Card>
                 <header className="card__header">
-                    <h1 className="card__header__title">Login</h1>
-                    <span className="card__header__advice">Need an account? <Link to="/register">Register now</Link></span>
+                    <h1 className="card__header__title">Register</h1>
+                    <span className="card__header__advice">Already have an account? <Link to="/login">Login here</Link></span>
                 </header>
                 <main className="card__content">
-                    <p className="card__content__instructions">Enter your email and password to login</p>
+                    <p className="card__content__instructions">Enter your email and password to register</p>
                     <form onSubmit={handleSubmit} noValidate={true} className="form">
                         <label className="input__label" htmlFor="email">Email Address</label>
                         <TextInput
@@ -76,13 +70,7 @@ const LoginPage: React.FC = () => {
                             type="password"
                             onChange={handlePasswordChange}
                         />
-                        <CheckboxInput
-                            className="mt-4"
-                            label="Remember me"
-                            checked={rememberMe}
-                            onChange={handleRememberMeChange}
-                        />
-                        <Button type="submit" disabled={isDisabled()}>Login</Button>
+                        <Button type="submit" disabled={isDisabled()}>Register</Button>
                     </form>
                     <span className="text--separator my-8">Or continue with</span>
                     <div className="oauth_link__container mt-4">
@@ -94,4 +82,4 @@ const LoginPage: React.FC = () => {
     );
 }
 
-export default LoginPage;
+export default RegisterPage;
