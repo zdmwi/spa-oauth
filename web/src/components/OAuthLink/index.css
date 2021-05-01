@@ -1,0 +1,31 @@
+.oauth_link {
+    padding: 0.5rem;
+    border: 1px solid #e8e8e8;
+    border-radius: 0.25rem;
+    text-decoration: none;
+    color: #555;
+    flex-grow: 1;
+    flex-basis: 0;
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.oauth_link:first-of-type {
+    margin-left: 0;
+}
+
+.oauth_link:last-of-type {
+    margin-right: 0;
+}
+
+.oauth_link__icon {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.oauth_link:hover {
+    background: #eee;
+}

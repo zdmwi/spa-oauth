@@ -1,0 +1,65 @@
+.login__page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: #f5f5f5;
+}
+
+.login__page .card {
+    text-align: center;
+}
+
+.login__page .card__content__instructions {
+    color: #444;
+    font-size: 0.9rem;
+}
+
+.login__page .input__label {
+    color: #444;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.text--separator {
+    display: flex;
+    flex-direction: row;
+    color: #bbb;
+    font-size: 0.9rem;
+}
+
+.text--separator:before, .text--separator:after {
+    content: "";
+    flex: 1 1;
+    border-bottom: 1px solid;
+    margin: auto;
+}
+
+.text--separator:before {
+    margin-right: 0.5rem;
+}
+
+.text--separator:after {
+    margin-left: 0.5rem;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form .button {
+    margin-top: 8px;
+}
+
+.card .card__header h1 {
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.oauth_link__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

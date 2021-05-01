@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactNode} from "react";
 
 export interface BaseAttributes {
     id ?: string;
@@ -12,4 +12,9 @@ export interface InputAttributes {
     autoComplete?: string;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => any;
     checked?: boolean;
+}
+
+export interface OAuthProvider {
+    url: string;
+    icon: any;
 }
