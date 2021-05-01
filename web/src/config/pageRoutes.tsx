@@ -3,6 +3,7 @@ import {PageRoute} from "../types";
 import LoginPage from "../pages/Login";
 import HomePage from "../pages/Home";
 import {Route} from "react-router-dom";
+import PrivateRoute from "../helpers/PrivateRoute";
 
 const routes: PageRoute[] = [
     {
@@ -13,13 +14,19 @@ const routes: PageRoute[] = [
     {
         path: "/home",
         component: HomePage,
-        isPrivate: false
+        isPrivate: true
     }
 ];
 
 const pageRoutes = routes.map((route: PageRoute, index: number) => {
     if (route.isPrivate) {
-        return null;
+        return (
+            <PrivateRoute
+                key={index}
+                path={route.path}
+                routeComponent={route.component}
+            />
+        )
     }
     return (
         <Route
