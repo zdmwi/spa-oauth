@@ -1,7 +1,7 @@
 package com.example
 
 import com.example.config.di
-import com.example.controllers.AuthController
+import com.example.controllers.AuthControllerImpl
 import com.example.controllers.auth
 import io.ktor.application.*
 import io.ktor.features.*
@@ -16,7 +16,7 @@ fun Application.module(testing: Boolean = false) {
     install(CallLogging)
     install(ContentNegotiation) { json() }
 
-    val authController by di.newInstance { AuthController(instance()) }
+    val authController by di.newInstance { AuthControllerImpl(instance()) }
     install(Routing) {
         auth(authController)
     }
