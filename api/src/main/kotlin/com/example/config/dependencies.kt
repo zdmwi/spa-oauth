@@ -6,10 +6,11 @@ import com.example.services.AuthService
 import com.example.services.AuthServiceImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
+import org.kodein.di.instance
 import org.kodein.di.provider
 
 val authModule = DI.Module("auth") {
-    bind<AuthService>() with provider { AuthServiceImpl() }
+    bind<AuthService>() with provider { AuthServiceImpl(instance()) }
 }
 
 val userModule = DI.Module("user") {
