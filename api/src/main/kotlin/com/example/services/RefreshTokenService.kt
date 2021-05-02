@@ -1,9 +1,9 @@
-package com.example.repositories
+package com.example.services
 
 import com.example.models.RefreshToken
 
-interface RefreshTokenRepository {
-    fun findById(id: Int): RefreshToken?
+interface RefreshTokenService {
+    fun create(): RefreshToken
     fun findByToken(token: String): RefreshToken?
     fun save(refreshToken: RefreshToken)
 }

@@ -16,7 +16,7 @@ class UserServiceImpl(private val userRepository: UserRepository): UserService {
         return userRepository.findById(id)
     }
 
-    override fun save(user: User): Int {
-        return userRepository.save(user)
+    override fun save(user: User) {
+        userRepository.save(user)
     }
 }

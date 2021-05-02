@@ -3,7 +3,7 @@ package com.example.repositories
 import com.example.models.User
 import com.example.repositories.schemas.Users
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insertAndGetId
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -28,10 +28,13 @@ class UserRepositoryImpl : UserRepository {
             .firstOrNull()
     }
 
-    override fun save(user: User): Int = transaction {
-        Users.insertAndGetId {
-            it[email] = user.email
-            it[password] = user.password
-        }.value
+    override fun save(user: User) {
+        transaction {
+            Users
+                .insert {
+                    it[email] = user.email
+                    it[password] = user.password
+                }
+        }
     }
 }

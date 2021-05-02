@@ -3,12 +3,12 @@ package com.example.repositories
 import com.example.models.RefreshToken
 import com.example.repositories.schemas.RefreshTokens
 import org.jetbrains.exposed.sql.SchemaUtils
-import org.jetbrains.exposed.sql.insertAndGetId
+import org.jetbrains.exposed.sql.insert
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
 
 
-class RefreshTokenRepositoryImpl: RefreshTokenRepository {
+class RefreshTokenRepositoryImpl : RefreshTokenRepository {
     init {
         transaction {
             SchemaUtils.create(RefreshTokens)
@@ -24,15 +24,19 @@ class RefreshTokenRepositoryImpl: RefreshTokenRepository {
 
     override fun findByToken(token: String): RefreshToken? = transaction {
         RefreshTokens
-            .select {RefreshTokens.token eq token}
+            .select { RefreshTokens.token eq token }
             .map { RefreshTokens.toDomain(it) }
             .firstOrNull()
     }
 
-    override fun save(refreshToken: RefreshToken): Int = transaction {
-        RefreshTokens
-            .insertAndGetId {
-                it[token] = refreshToken.toString()
-            }.value
+    override fun save(refreshToken: RefreshToken) {
+        transaction {
+            RefreshTokens
+                .insert {
+                    it[token] = refreshToken.token
+                    it[userId] = refreshToken.user
+                    it[expiryDate] = refreshToken.expiryDate
+                }
+        }
     }
 }

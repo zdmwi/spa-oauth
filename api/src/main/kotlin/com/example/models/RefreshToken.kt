@@ -1,3 +1,10 @@
 package com.example.models
 
-data class RefreshToken(val id: Int?, val token: String)
+import java.time.LocalDateTime
+
+data class RefreshToken(
+    val id: Int?,
+    val user: Int?,
+    val token: String,
+    val expiryDate: LocalDateTime
+)
