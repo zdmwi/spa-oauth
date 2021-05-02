@@ -18,7 +18,7 @@ class AuthServiceImpl(private val userService: UserService) : AuthService {
         userService.save(user)
     }
 
-    override fun loginUser(request: LoginUserRequest) {
+    override fun loginUser(request: LoginUserRequest): User {
         fun User.hasDifferentPassword(plaintextPassword: String) = !arePasswordsEqual(plaintextPassword, password)
 
         val userFound = userService.findByEmail(request.email)
@@ -27,6 +27,6 @@ class AuthServiceImpl(private val userService: UserService) : AuthService {
         if (userFound.hasDifferentPassword(request.password))
             throw InvalidCredentialsException("Incorrect password provided")
 
-
+        return userFound
     }
 }

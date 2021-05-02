@@ -5,10 +5,13 @@ import com.auth0.jwt.algorithms.Algorithm
 import com.example.config.di
 import com.example.controllers.AuthControllerImpl
 import com.example.controllers.auth
+import com.example.models.User
+import com.example.services.UserServiceImpl
 import io.ktor.application.*
 import io.ktor.auth.*
 import io.ktor.auth.jwt.*
 import io.ktor.features.*
+import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.serialization.*
 import org.jetbrains.exposed.sql.Database
@@ -49,7 +52,8 @@ fun Application.module(testing: Boolean = false) {
                 .build())
             validate { credential ->
                 if (credential.payload.audience.contains(audience)) {
-                    JWTPrincipal(credential.payload)
+                    val userService by di.newInstance { UserServiceImpl(instance()) }
+                    userService.findById(credential.payload.getClaim("id").asInt())
                 } else null
             }
         }
@@ -58,5 +62,15 @@ fun Application.module(testing: Boolean = false) {
     val authController by di.newInstance { AuthControllerImpl(instance()) }
     install(Routing) {
         auth(authController)
+    }
+
+    routing {
+        authenticate {
+            get("/whoami") {
+                val principal = call.authentication.principal<User>()
+                val subjectString = principal!!.id.toString()
+                call.respondText(subjectString)
+            }
+        }
     }
 }
