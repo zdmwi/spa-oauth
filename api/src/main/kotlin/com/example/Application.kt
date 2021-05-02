@@ -59,13 +59,13 @@ fun Application.module(testing: Boolean = false) {
         }
     }
 
-    val authController by di.newInstance { AuthControllerImpl(instance()) }
+    val authController by di.newInstance { AuthControllerImpl(instance(), instance()) }
     install(Routing) {
         auth(authController)
     }
 
     routing {
-        authenticate {
+        authenticate("auth-jwt") {
             get("/whoami") {
                 val principal = call.authentication.principal<User>()
                 val subjectString = principal!!.id.toString()
