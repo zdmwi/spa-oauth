@@ -2,7 +2,7 @@ package com.example.services
 
 import com.example.exceptions.ExistingUserException
 import com.example.exceptions.InvalidCredentialsException
-import com.example.models.entities.User
+import com.example.models.User
 import com.example.models.payloads.LoginUserRequest
 import com.example.models.payloads.RegisterUserRequest
 import com.example.utils.arePasswordsEqual
@@ -24,6 +24,9 @@ class AuthServiceImpl(private val userService: UserService) : AuthService {
         val userFound = userService.findByEmail(request.email)
             ?: throw InvalidCredentialsException("Cannot find a user with this email address")
 
-        if (userFound.hasDifferentPassword(request.password)) throw InvalidCredentialsException("Incorrect password provided")
+        if (userFound.hasDifferentPassword(request.password))
+            throw InvalidCredentialsException("Incorrect password provided")
+
+
     }
 }

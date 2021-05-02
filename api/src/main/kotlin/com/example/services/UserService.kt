@@ -1,6 +1,6 @@
 package com.example.services
 
-import com.example.models.entities.User
+import com.example.models.User
 
 interface UserService {
     fun create(email: String, password: String): User

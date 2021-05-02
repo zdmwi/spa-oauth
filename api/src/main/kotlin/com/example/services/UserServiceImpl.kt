@@ -1,6 +1,6 @@
 package com.example.services
 
-import com.example.models.entities.User
+import com.example.models.User
 import com.example.repositories.UserRepository
 
 class UserServiceImpl(private val userRepository: UserRepository): UserService {
@@ -17,6 +17,6 @@ class UserServiceImpl(private val userRepository: UserRepository): UserService {
     }
 
     override fun save(user: User): Int {
-        return userRepository.create(user)
+        return userRepository.save(user)
     }
 }
