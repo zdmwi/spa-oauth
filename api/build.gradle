@@ -26,6 +26,7 @@ dependencies {
     implementation "com.h2database:h2:$h2_version"
     implementation "org.mindrot:jbcrypt:$jbcrypt_version"
     implementation "org.kodein.di:kodein-di:$kodein_version"
+    implementation "org.valiktor:valiktor-core:$valiktor_version"
 
     testImplementation "io.ktor:ktor-server-tests:$ktor_version"
     testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'

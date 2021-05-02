@@ -4,6 +4,8 @@ import com.example.repositories.UserRepository
 import com.example.repositories.UserRepositoryImpl
 import com.example.services.AuthService
 import com.example.services.AuthServiceImpl
+import com.example.services.UserService
+import com.example.services.UserServiceImpl
 import org.kodein.di.DI
 import org.kodein.di.bind
 import org.kodein.di.instance
@@ -14,6 +16,7 @@ val authModule = DI.Module("auth") {
 }
 
 val userModule = DI.Module("user") {
+    bind<UserService>() with provider { UserServiceImpl(instance()) }
     bind<UserRepository>() with provider { UserRepositoryImpl() }
 }
 
