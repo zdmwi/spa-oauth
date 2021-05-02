@@ -6,7 +6,7 @@ import com.example.models.entities.User
 import com.example.models.payloads.LoginUserRequest
 import com.example.models.payloads.RegisterUserRequest
 import com.example.repositories.UserRepository
-import com.example.utils.checkPassword
+import com.example.utils.arePasswordsEqual
 import com.example.utils.hashPassword
 
 class AuthServiceImpl(private val userRepository: UserRepository) : AuthService {
@@ -20,11 +20,11 @@ class AuthServiceImpl(private val userRepository: UserRepository) : AuthService 
     }
 
     override fun loginUser(request: LoginUserRequest) {
-        fun User.hasSamePassword(plaintextPassword: String) = checkPassword(plaintextPassword, password)
+        fun User.hasDifferentPassword(plaintextPassword: String) = !arePasswordsEqual(plaintextPassword, password)
 
         val userFound = userRepository.findByEmail(request.email)
             ?: throw InvalidCredentialsException("Cannot find a user with this email address")
 
-        if (!userFound.hasSamePassword(request.password)) throw InvalidCredentialsException("Incorrect password provided")
+        if (userFound.hasDifferentPassword(request.password)) throw InvalidCredentialsException("Incorrect password provided")
     }
 }
