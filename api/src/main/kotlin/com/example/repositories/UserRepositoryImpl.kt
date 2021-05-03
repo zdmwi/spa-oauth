@@ -21,6 +21,13 @@ class UserRepositoryImpl : UserRepository {
             .firstOrNull()
     }
 
+    override fun findByGithubId(githubId: String): User? = transaction {
+        Users
+            .select { Users.githubId eq githubId }
+            .map { Users.toDomain(it) }
+            .firstOrNull()
+    }
+
     override fun findByEmail(email: String): User? = transaction {
         Users
             .select { Users.email eq email }
@@ -33,6 +40,8 @@ class UserRepositoryImpl : UserRepository {
             Users
                 .insert {
                     it[email] = user.email
+                    it[githubId] = user.githubId
+                    it[githubAccessToken] = user.githubAccessToken
                     it[password] = user.password
                 }
         }
