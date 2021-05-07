@@ -93,8 +93,8 @@ class AuthControllerImpl(
                 githubAccessToken = githubAccessToken)
 
             userService.save(user)
-            user = user.githubId?.let { userService.findByGithubId(it) }
         }
+        user = user.githubId?.let { userService.findByGithubId(it) }
 
         val jwtSecret = call.application.environment.config.property("jwt.secret").getString()
         val jwtAccessToken = generateAccessToken(user!!, jwtSecret)
@@ -136,6 +136,24 @@ class AuthControllerImpl(
             }
         }.use { client -> client.get<JsonObject>(urlString) }
 
-        call.respond(response)
+        val twitterId = response["id"].toString()
+        val email = response["email"].toString()
+        var user = userService.findByTwitterId(twitterId)
+
+        if (user == null) {
+            user = userService.create(
+                email = email,
+                password = "",
+                twitterId = twitterId
+            )
+            userService.save(user)
+        }
+        user = user.twitterId?.let { userService.findByTwitterId(it) }
+
+        val jwtSecret = call.application.environment.config.property("jwt.secret").getString()
+        val jwtAccessToken = generateAccessToken(user!!, jwtSecret)
+        val refreshToken = refreshTokenService.create(user)
+
+        call.respondRedirect("http://localhost:3000/login?accessToken=$jwtAccessToken&refreshToken=${refreshToken.token}")
     }
 }

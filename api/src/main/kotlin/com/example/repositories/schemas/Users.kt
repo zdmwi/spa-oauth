@@ -8,6 +8,7 @@ internal object Users : Table() {
     val id = integer("id").autoIncrement()
     val githubId = varchar("github_id", 128).nullable()
     val githubAccessToken = varchar("github_access_token", 128).nullable()
+    val twitterId = varchar("twitter_id", 128).nullable()
     val email = varchar("email", 128)
     val password = varchar("password", 128)
 
@@ -18,6 +19,7 @@ internal object Users : Table() {
             id = row[id],
             githubId = row[githubId],
             githubAccessToken = row[githubAccessToken],
+            twitterId = row[twitterId],
             email = row[email],
             password = row[password],
         )

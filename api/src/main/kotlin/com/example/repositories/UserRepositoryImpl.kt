@@ -28,6 +28,13 @@ class UserRepositoryImpl : UserRepository {
             .firstOrNull()
     }
 
+    override fun findByTwitterId(twitterId: String): User? = transaction {
+        Users
+            .select { Users.twitterId eq twitterId }
+            .map { Users.toDomain(it) }
+            .firstOrNull()
+    }
+
     override fun findByEmail(email: String): User? = transaction {
         Users
             .select { Users.email eq email }
@@ -43,6 +50,7 @@ class UserRepositoryImpl : UserRepository {
                     it[githubId] = user.githubId
                     it[githubAccessToken] = user.githubAccessToken
                     it[password] = user.password
+                    it[twitterId] = user.twitterId
                 }
         }
     }
