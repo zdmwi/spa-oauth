@@ -8,5 +8,5 @@ import com.example.models.payloads.RegisterUserRequest
 interface AuthService {
     fun registerUser(request: RegisterUserRequest)
     fun loginUser(request: LoginUserRequest): User
-    fun refreshAccessToken(request: RefreshTokenRequest): String?
+    fun refreshAccessToken(request: RefreshTokenRequest, secret: String): String?
 }

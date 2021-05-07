@@ -12,7 +12,9 @@ import io.ktor.auth.*
 import io.ktor.auth.jwt.*
 import io.ktor.client.*
 import io.ktor.client.engine.cio.*
+import io.ktor.client.request.*
 import io.ktor.features.*
+import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -55,6 +57,14 @@ fun Application.module(testing: Boolean = false) {
             clientId = environment.config.property("oauth.githubClientId").getString(),
             clientSecret = environment.config.property("oauth.githubClientSecret").getString(),
             defaultScopes = listOf("read:user", "user:email")
+        ),
+        OAuthServerSettings.OAuth1aServerSettings(
+            name = "twitter",
+            requestTokenUrl = "https://api.twitter.com/oauth/request_token",
+            authorizeUrl = "https://api.twitter.com/oauth/authorize",
+            accessTokenUrl = "https://api.twitter.com/oauth/access_token",
+            consumerKey = environment.config.property("oauth.twitterConsumerKey").getString(),
+            consumerSecret = environment.config.property("oauth.twitterConsumerSecret").getString()
         )
     ).associateBy { it.name }
 
@@ -77,6 +87,12 @@ fun Application.module(testing: Boolean = false) {
             client = HttpClient(CIO)
             providerLookup = { loginProviders["github"] }
             urlProvider = { "http://localhost:4288/auth/login/oauth/github/callback" }
+
+        }
+        oauth("twitter-oauth") {
+            client = HttpClient(CIO)
+            providerLookup = { loginProviders["twitter"] }
+            urlProvider = { "http://localhost:4288/auth/login/oauth/twitter/callback" }
         }
     }
 

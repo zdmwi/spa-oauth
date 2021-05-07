@@ -41,7 +41,7 @@ class AuthServiceImpl(
         return userFound
     }
 
-    override fun refreshAccessToken(request: RefreshTokenRequest): String? {
+    override fun refreshAccessToken(request: RefreshTokenRequest, secret: String): String? {
         fun RefreshToken.isExpired(): Boolean =
             expiryDate.isBefore(convertDateToLocalDateTime(Date()))
 
@@ -59,6 +59,6 @@ class AuthServiceImpl(
 
         val user = userService.findById(refreshToken.id!!)
 
-        return user?.let { generateAccessToken(it) }
+        return user?.let { generateAccessToken(it, secret) }
     }
 }

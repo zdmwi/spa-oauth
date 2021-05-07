@@ -9,9 +9,8 @@ private const val timeValidForInMs = 60_000 * 1 // 1 hour
 private const val issuer = "https://example.com"
 const val audience = "spa-oauth-audience"
 private const val subject = "authentication"
-private val algorithm = Algorithm.HMAC256("super-secret")
 
-fun generateAccessToken(user: User): String =
+fun generateAccessToken(user: User, secret: String): String =
     JWT
         .create()
         .withIssuedAt(Date())
@@ -20,4 +19,4 @@ fun generateAccessToken(user: User): String =
         .withAudience(audience)
         .withClaim("id", user.id!!)
         .withExpiresAt(Date(System.currentTimeMillis() + timeValidForInMs))
-        .sign(algorithm)
+        .sign(Algorithm.HMAC256(secret))
