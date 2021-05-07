@@ -4,8 +4,10 @@ import {Redirect, Route, RouteProps} from "react-router-dom";
 type PrivateRouteProps = RouteProps & {routeComponent: React.ElementType};
 
 const PrivateRoute: React.FC<PrivateRouteProps> = ({children, ...rest}: PrivateRouteProps) => {
-    // TODO: Refactor this to use the proper auth methods later on
-    const isAuthenticated = (): boolean => false;
+    const accessToken = localStorage.getItem("accessToken");
+    const refreshToken = localStorage.getItem("refreshToken");
+
+    const isAuthenticated = (): boolean => accessToken !== null && refreshToken !== null;
 
     return (
         <Route
